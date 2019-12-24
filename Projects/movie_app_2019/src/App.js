@@ -37,16 +37,17 @@ const foodILike = [
   },
 ];
 
-function Food(props) {
+function Food({ name, picture, rating }) {
   return (
     <div>
-      <h2>I like {props.name}</h2>
-      <h4>{props.rating} / 5.0</h4>
-      <img src={props.picture} width="50%" alt={props.name} />
+      <h2>I like {name}</h2>
+      <h4>{rating} / 5.0</h4>
+      <img src={picture} width="50%" alt={name} />
     </div>
   );
 }
 
+// npm i prop-types
 Food.defaultProps = {
   rating: 0,
 };
