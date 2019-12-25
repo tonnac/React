@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Movie from "./Movie";
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -45,7 +46,17 @@ class App extends React.Component {
 
   render() {
     const { isLoading } = this.state;
-    return <div>{isLoading ? "Loading..." : this.renderMovies()}</div>;
+    return (
+      <section class="container">
+        {isLoading ? (
+          <div class="loader">
+            <span class="loader__text">Loading...</span>
+          </div>
+        ) : (
+          <div class="movies">{this.renderMovies()}</div>
+        )}
+      </section>
+    );
   }
 }
 
