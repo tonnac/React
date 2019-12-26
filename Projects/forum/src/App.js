@@ -1,8 +1,49 @@
 import React from "react";
 import axios from "axios";
 import Movie from "./Movielist";
-import Tablehead from "./Tablehead";
 import "./App.css";
+
+function Tablehead({ onClick }) {
+  return (
+    <thead>
+      <tr>
+        <th>
+          <button onClick={() => onClick("id")}>번호</button>
+        </th>
+        <th>
+          <button onClick={() => onClick("title")}>제목</button>
+        </th>
+        <th>
+          <button onClick={() => onClick("date_uploaded")}>날짜</button>
+        </th>
+      </tr>
+    </thead>
+  );
+}
+
+function Tablebody(props) {
+  let rows = [];
+  const currentPage = props.currentPage;
+  let movies = props.movies.slice((currentPage - 1) * 20, currentPage * 20);
+
+  movies.forEach((movie, index) => {
+    rows.push(<Movie key={index} movie={movie} />);
+  });
+  return <tbody>{rows}</tbody>;
+}
+
+function PageNumber(props) {
+  const page = props.movies.length / 20;
+  let rows = [];
+  for (let i = 0; i < page; ++i) {
+    rows.push(
+      <button key={i} onClick={() => props.onClick(i)}>
+        {i + 1}
+      </button>,
+    );
+  }
+  return rows;
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -12,46 +53,21 @@ class App extends React.Component {
       isLoading: true,
       endNumber: 5,
       currentPage: 1,
-      sort: { date: true, title: true, number: true },
+      sort: { date_uploaded: true, title: true, id: true },
     };
   }
 
-  compareFunc(type, minus) {
-    switch (type) {
-      case "number":
-        return (a, b) => {
-          const nameA = a.id;
-          const nameB = b.id;
-          if (nameA < nameB) {
-            return -1 * minus;
-          }
-          if (nameA >= nameB) {
-            return 1 * minus;
-          }
-        };
-      case "title":
-        return (a, b) => {
-          const nameA = a.title;
-          const nameB = b.title;
-          if (nameA < nameB) {
-            return -1 * minus;
-          }
-          if (nameA >= nameB) {
-            return 1 * minus;
-          }
-        };
-      case "date":
-        return (a, b) => {
-          const nameA = a.date_uploaded;
-          const nameB = b.date_uploaded;
-          if (nameA < nameB) {
-            return -1 * minus;
-          }
-          if (nameA >= nameB) {
-            return 1 * minus;
-          }
-        };
-    }
+  compareFunc(type, sign) {
+    return (a, b) => {
+      const A = a[type];
+      const B = b[type];
+      if (A < B) {
+        return -sign;
+      }
+      if (A >= B) {
+        return sign;
+      }
+    };
   }
 
   sortList(type) {
@@ -59,9 +75,9 @@ class App extends React.Component {
     sort[type] = !sort[type];
 
     let movies = this.state.movies;
-    const minus = sort[type] ? 1 : -1;
+    const sign = sort[type] ? 1 : -1;
 
-    movies.sort(this.compareFunc(type, minus));
+    movies.sort(this.compareFunc(type, sign));
 
     this.setState({
       movies,
@@ -69,56 +85,32 @@ class App extends React.Component {
     });
   }
 
-  tableBody() {
-    let rows = [];
-    const { currentPage } = this.state;
-    let movies = this.state.movies.slice(
-      (currentPage - 1) * 20,
-      currentPage * 20,
-    );
-
-    movies.forEach((movie, index) => {
-      rows.push(<Movie key={index} movie={movie} />);
-    });
-    return <tbody>{rows}</tbody>;
-  }
-
-  pageNumber(props) {
-    const page = this.state.movies.length / 20;
-    let rows = [];
-    for (let i = 0; i < page; ++i) {
-      rows.push(
-        <button key={i} onClick={() => this.pageClick(i + 1)}>
-          {i + 1}
-        </button>,
-      );
-    }
-    return rows;
-  }
-
-  pageClick(i) {
-    this.setState({
-      currentPage: i,
-    });
-  }
-  showMovieList() {
+  executeApp() {
     return (
       <div>
         <table border="1">
-          <Tablehead callback={this.sortList.bind(this)} />
-          {this.tableBody()}
+          <Tablehead onClick={this.sortList.bind(this)} />
+          <Tablebody
+            movies={this.state.movies}
+            currentPage={this.state.currentPage}
+          />
         </table>
-        <div>{this.pageNumber()}</div>
+        <div>
+          <PageNumber
+            movies={this.state.movies}
+            onClick={i => {
+              this.setState({
+                currentPage: i + 1,
+              });
+            }}
+          />
+        </div>
       </div>
     );
   }
 
   componentDidMount() {
     this.loadData();
-  }
-
-  pageUpdate() {
-    console.log("Page");
   }
 
   loadData() {
@@ -135,15 +127,11 @@ class App extends React.Component {
             movies: this.state.movies.concat(movie),
           });
         });
-        // this.pageUpdate();
         if (
           this.state.isLoading === true &&
           this.state.movies.length >= endNumber * 20
         ) {
           this.setState({ isLoading: false });
-          {
-            /* TODO {First Page Render} */
-          }
         }
       });
     } while (i < endNumber);
@@ -151,7 +139,7 @@ class App extends React.Component {
 
   render() {
     const { isLoading } = this.state;
-    return <div>{isLoading ? "Loading..." : this.showMovieList()}</div>;
+    return <div>{isLoading ? "Loading..." : this.executeApp()}</div>;
   }
 }
 
