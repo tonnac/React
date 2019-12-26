@@ -2,9 +2,32 @@ a {
   text-decoration: none;
 }
 
-.Movie {
+img {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: burlywood;
+}
+
+.item {
+  color: black;
   width: 330px;
   height: 370px;
   background-color: white;
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+  justify-content: space-between;
+}
+
+.movie__header {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
 }

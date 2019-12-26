@@ -11,7 +11,7 @@ function Body(props) {
   );
 
   _movies.forEach((movie, index) => {
-    rows.push(<Movie  key={index} movie={movie} />);
+    rows.push(<Movie key={index} movie={movie} />);
   });
   return <div className="body">{rows}</div>;
 }
