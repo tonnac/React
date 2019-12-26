@@ -1,9 +1,32 @@
-.body {
-  margin: 0;
+.pBody {
+  background-color: khaki;
+  height: 400px;
+  margin-bottom: 15px;
   margin-left: 15px;
   margin-right: 15px;
   display: flex;
-  justify-content: space-between;
-  align-content: flex-start;
-  flex-wrap: wrap;
+}
+
+.bodyitem__leftBody {
+  background-color: lawngreen;
+  flex-grow: 4.5;
+}
+
+.bodyitem__rightBody {
+  background-color: lightcoral;
+  flex-grow: 1;
+}
+
+.movie__genres {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  margin: 5px 0px;
+}
+
+.movie__genres li,
+.movie .movie__year {
+  margin-right: 10px;
+  font-size: 14px;
 }

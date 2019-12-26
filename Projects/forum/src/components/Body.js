@@ -1,19 +1,38 @@
-import React from "react";
-import Movie from "./Movielist";
+import React, { Component } from "react";
 import "./Body.css";
 
-function Body(props) {
-  const { movies, pagePerCount, currentPage } = props;
-  let rows = [];
-  let _movies = movies.slice(
-    (currentPage - 1) * pagePerCount,
-    currentPage * pagePerCount,
-  );
+class Body extends Component {
+  leftBody() {}
 
-  _movies.forEach((movie, index) => {
-    rows.push(<Movie key={index} movie={movie} />);
-  });
-  return <div className="body">{rows}</div>;
+  rightBody() {
+    const { movie } = this.props;
+
+    return (
+      <div className="bodyitem__rightBody">
+        <h2>{`Rating: ${movie.rating}`}</h2>
+        <h1>{`Year: ${movie.year}`}</h1>
+        <h3>{`Runtime: ${movie.runtime}`}</h3>
+        <div>Genres</div>
+        <ul className="movie__genres">
+          {movie.genres.map((genre, index) => (
+            <li key={index} className="genres__genre">
+              {genre}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  render() {
+    const { movie } = this.props;
+    return movie ? (
+      <div className="pBody">
+        <div className="bodyitem__leftBody">{this.leftBody()}</div>
+        {this.rightBody()}
+      </div>
+    ) : null;
+  }
 }
 
 export default Body;

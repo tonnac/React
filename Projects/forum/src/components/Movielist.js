@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Movielist.css";
 
-function Movie({ movie }) {
+function Movie({ movie, onClick }) {
   return (
-    <Link to={{ pathname: `movie/${movie.id}`, state: movie }}>
+    <button onClick={() => onClick(movie)}>
       <div className="item">
         <img src={movie.medium_cover_image} alt={movie.title} />
         <div className="movie__header">
@@ -12,7 +11,7 @@ function Movie({ movie }) {
           <div className="movieitem__rating">{"Rating: " + movie.rating}</div>
         </div>
       </div>
-    </Link>
+    </button>
   );
 }
 

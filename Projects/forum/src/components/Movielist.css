@@ -2,6 +2,12 @@ a {
   text-decoration: none;
 }
 
+.body button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
 img {
   margin-top: 10px;
   margin-left: 10px;
@@ -10,6 +16,7 @@ img {
 }
 
 .item {
+  font-size: 18px;
   color: black;
   width: 330px;
   height: 370px;
