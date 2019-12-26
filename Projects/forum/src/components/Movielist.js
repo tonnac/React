@@ -4,15 +4,13 @@ import "./Movielist.css";
 
 function Movie({ movie }) {
   return (
-    <tr>
-      <td>{movie.id}</td>
-      <td>
-        <Link to={{ pathname: `movie/${movie.id}`, state: movie }}>
-          {movie.title}
-        </Link>
-      </td>
-      <td>{movie.date_uploaded}</td>
-    </tr>
+    <div className="Movie">
+      <div className="movie__id">{movie.id}</div>
+      <Link to={{ pathname: `movie/${movie.id}`, state: movie }}>
+        <div className="movie__title">{movie.title}</div>
+      </Link>
+      <div className="movie__date">{movie.date_uploaded}</div>
+    </div>
   );
 }
 

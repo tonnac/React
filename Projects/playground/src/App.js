@@ -1,5 +1,9 @@
 import React from "react";
 
+function Testprops(props) {
+  const { count } = props;
+  return <div>{count}</div>;
+}
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +23,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <div>{this.soort("number")}</div>;
+    return <Testprops count="5" />;
   }
 }
 

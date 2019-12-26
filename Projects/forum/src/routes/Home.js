@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Movie from "../components/Movielist";
+import Body from "../components/Body";
+import PageNumber from "../components/PageNumber";
 import Headline from "../components/Headline";
 import "./Home.css";
 
@@ -22,30 +23,6 @@ function Tablehead({ onClick }) {
   );
 }
 
-function Tablebody(props) {
-  let rows = [];
-  const currentPage = props.currentPage;
-  let movies = props.movies.slice((currentPage - 1) * 20, currentPage * 20);
-
-  movies.forEach((movie, index) => {
-    rows.push(<Movie key={index} movie={movie} />);
-  });
-  return <tbody>{rows}</tbody>;
-}
-
-function PageNumber(props) {
-  const page = props.movies.length / 20;
-  let rows = [];
-  for (let i = 0; i < page; ++i) {
-    rows.push(
-      <button key={i} onClick={() => props.onClick(i)}>
-        {i + 1}
-      </button>,
-    );
-  }
-  return rows;
-}
-
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -55,6 +32,7 @@ class Home extends React.Component {
       endNumber: 5,
       currentPage: 1,
       sort: { date_uploaded: true, title: true, id: true },
+      pagePerCount: 30,
     };
   }
 
@@ -88,28 +66,25 @@ class Home extends React.Component {
 
   executeApp() {
     return (
-      <div>
+      <div className="backGround">
         <Headline
           page={this.state.currentPage}
           results={this.state.movies.length}
         />
-        <table border="1">
-          <Tablehead onClick={this.sortList.bind(this)} />
-          <Tablebody
-            movies={this.state.movies}
-            currentPage={this.state.currentPage}
-          />
-        </table>
-        <div>
-          <PageNumber
-            movies={this.state.movies}
-            onClick={i => {
-              this.setState({
-                currentPage: i + 1,
-              });
-            }}
-          />
-        </div>
+        <Body
+          pagePerCount={this.state.pagePerCount}
+          movies={this.state.movies}
+          currentPage={this.state.currentPage}
+        />
+        <PageNumber
+          pagePerCount={this.state.pagePerCount}
+          movies={this.state.movies}
+          onClick={i => {
+            this.setState({
+              currentPage: i + 1,
+            });
+          }}
+        />
       </div>
     );
   }
@@ -144,7 +119,7 @@ class Home extends React.Component {
 
   render() {
     const { isLoading } = this.state;
-    return <div>{isLoading ? "Loading..." : this.executeApp()}</div>;
+    return isLoading ? <div>Loading...</div> : this.executeApp();
   }
 }
 
