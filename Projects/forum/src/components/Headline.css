@@ -9,13 +9,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
   margin-bottom: 15px;
 }
 
 .headitem {
   display: flex;
-  height: 180px;
+  height: 90px;
   justify-content: center;
   align-items: center;
   font-size: 20px;

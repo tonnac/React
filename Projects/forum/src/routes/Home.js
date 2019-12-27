@@ -97,6 +97,7 @@ class Home extends React.Component {
     return (
       <div className="backGround">
         <Headline
+          pagePerCount={this.state.pagePerCount}
           page={this.state.currentPage}
           results={this.state.movies.length}
         />

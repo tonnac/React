@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import "./Body.css";
 
 class Body extends Component {
-  leftBody() {}
+  leftBody() {
+    const { movie } = this.props;
+
+    return <div>leftBody</div>;
+  }
 
   rightBody() {
     const { movie } = this.props;
