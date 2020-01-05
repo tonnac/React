@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
@@ -12,7 +12,9 @@ function App() {
       <GlobalStyles />
       <Container>
         <Button>Hello</Button>
-        <Button danger>Hello</Button>
+        <Button danger rotationTime={2}>
+          Hello
+        </Button>
         <Anchor href="http://google.com">Go to google</Anchor>
       </Container>
     </>
@@ -24,6 +26,15 @@ const Container = styled.div`
   width: 100%;
   background-color: #bdc3c7;
 `;
+
+const rotation = keyframes`
+    from{
+      transform: rotate(0deg)
+    }
+    to{
+      transform: rotate(360deg)
+    }
+  `;
 
 const Button = styled.button`
   border-radius: 50px;
@@ -38,6 +49,13 @@ const Button = styled.button`
     outline: none;
   }
   background-color: ${props => (props.danger ? "#e74c3c" : "#2ecc71")};
+
+  animation: ${props =>
+    props.danger
+      ? css`
+          ${rotation} ${props.rotationTime}s linear infinite
+        `
+      : ``};
 `;
 
 const Anchor = styled(Button.withComponent("a"))`
