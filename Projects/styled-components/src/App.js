@@ -6,14 +6,16 @@ import theme from "./theme";
 const GlobalStyles = createGlobalStyle`
     ${reset};
 `;
+const Card = styled.div`
+  background-color: red;
+`;
 const Container = styled.div`
   height: 100vh;
   width: 100%;
   background-color: #bdc3c7;
-`;
-
-const Card = styled.div`
-  background-color: red;
+  ${Card} {
+    background-color: black;
+  }
 `;
 
 const Button = styled.button`
