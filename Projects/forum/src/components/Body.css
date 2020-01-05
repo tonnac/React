@@ -9,12 +9,19 @@
 
 .bodyitem__leftBody {
   background-color: lawngreen;
-  flex-grow: 4.5;
+  flex: 3;
 }
 
 .bodyitem__rightBody {
+  width: 200px;
+  padding-left: 30px;
   background-color: lightcoral;
-  flex-grow: 1;
+  flex: 1;
+}
+
+h1,
+h2 {
+  text-align: center;
 }
 
 .movie__genres {

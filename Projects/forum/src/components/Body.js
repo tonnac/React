@@ -13,9 +13,7 @@ class Body extends Component {
 
     return (
       <div className="bodyitem__rightBody">
-        <h2>{`Rating: ${movie.rating}`}</h2>
-        <h1>{`Year: ${movie.year}`}</h1>
-        <h3>{`Runtime: ${movie.runtime}`}</h3>
+        <h1>{`Rating: ${movie.rating}`}</h1>
         <div>Genres</div>
         <ul className="movie__genres">
           {movie.genres.map((genre, index) => (
@@ -24,6 +22,8 @@ class Body extends Component {
             </li>
           ))}
         </ul>
+        <h2>{`Runtime: ${movie.runtime}`}</h2>
+        <h2>{`Year: ${movie.year}`}</h2>
       </div>
     );
   }
