@@ -38,7 +38,15 @@ class App extends React.Component {
   }
 
   render() {
-    return <Dropdown title="Locations" list={this.state.location}></Dropdown>;
+    return (
+      <input
+      name="dds"
+        onChange={e => {
+          e.preventDefault();
+          console.log(e.target.name);
+        }}
+      ></input>
+    );
   }
 }
 
