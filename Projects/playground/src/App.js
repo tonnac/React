@@ -1,16 +1,31 @@
 import React from "react";
+import Dropdown from "./Dropdown";
 
-function Testprops(props) {
-  const { count } = props;
-  return <div>{count}</div>;
-}
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       sort: { date: false, number: true },
-      w: []
+      w: [],
+      location: [
+        {
+          title: "New York",
+          selected: false
+        },
+        {
+          title: "Dublin",
+          selected: false
+        },
+        {
+          title: "California",
+          selected: false
+        },
+        {
+          title: "Istanbul",
+          selected: false
+        }
+      ]
     };
   }
 
@@ -23,7 +38,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <Testprops count="5" />;
+    return <Dropdown title="Locations" list={this.state.location}></Dropdown>;
   }
 }
 
