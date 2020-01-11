@@ -1,5 +1,6 @@
 import React from "react";
 import Dropdown from "./Dropdown";
+import { data } from "./Data";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,9 +39,10 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(data);
     return (
       <input
-      name="dds"
+        name="dds"
         onChange={e => {
           e.preventDefault();
           console.log(e.target.name);
