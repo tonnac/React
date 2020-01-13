@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 function getAverage(numbers: Array<number>) {
   console.log("평균 계산 중..");
@@ -11,15 +11,18 @@ export default function Average() {
   const [list, setList] = useState([] as number[]);
   const [_number, setNumber] = useState("");
 
-  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setNumber(e.target.value);
-  }
+  }, []);
 
-  function onInsert(e: React.MouseEvent) {
-    const nextList = list.concat(parseInt(_number));
-    setList(nextList);
-    setNumber("");
-  }
+  const onInsert = useCallback(
+    (e: React.MouseEvent) => {
+      const nextList = list.concat(parseInt(_number));
+      setList(nextList);
+      setNumber("");
+    },
+    [_number, list]
+  );
 
   const avg = useMemo(() => getAverage(list), [list]);
 
