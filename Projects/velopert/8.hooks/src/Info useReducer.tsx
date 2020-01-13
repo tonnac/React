@@ -1,9 +1,24 @@
-import React from "react";
-import useInputs from "./useInputs";
+import React, { useReducer } from "react";
+
+type State = {
+  name: string;
+  nickName: string;
+};
+
+function reducer(state: State, action: EventTarget & HTMLInputElement) {
+  return {
+    ...state,
+    [action.className]: action.value
+  };
+}
 
 function Info() {
-  const [state, onChange] = useInputs({ name: "", nickName: "" });
+  const [state, dispatch] = useReducer(reducer, { name: "", nickName: "" });
+
   const { name, nickName } = state;
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(e.target);
+  }
 
   return (
     <div>

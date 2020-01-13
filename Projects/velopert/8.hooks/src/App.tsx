@@ -4,7 +4,7 @@ import Info from "./Info";
 import Average from "./Average";
 
 const App: React.FC = () => {
-  return <Average />;
+  return <Info />;
 };
 
 export default App;
