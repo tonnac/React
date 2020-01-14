@@ -1,0 +1,31 @@
+import React from "react";
+import {
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
+  MdRemoveCircleOutline
+} from "react-icons/md";
+import { TodoProp } from "../App";
+import cn from "classnames";
+import "./TodoListItem.scss";
+
+function TodoListItem(props: {
+  todo: TodoProp;
+  onRemove: (id: number) => void;
+  onToggle: (id: number) => void;
+}) {
+  const { id, text, checked } = props.todo;
+  const { onRemove, onToggle } = props;
+  return (
+    <div className="TodoListItem">
+      <div className={cn("checkbox", { checked })} onClick={() => onToggle(id)}>
+        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        <div className="text">{text}</div>
+      </div>
+      <div className="remove" onClick={() => onRemove(id)}>
+        <MdRemoveCircleOutline />
+      </div>
+    </div>
+  );
+}
+
+export default React.memo(TodoListItem);
