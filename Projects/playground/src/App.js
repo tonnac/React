@@ -1,55 +1,74 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Dropdown from "./Dropdown";
-import { data } from "./Data";
+import Tooltip from "./tooltip";
+import Btn from "./Btn";
+import styled from "styled-components";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const Div = styled.div`
+  height: 940px;
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+`;
 
-    this.state = {
-      sort: { date: false, number: true },
-      w: [],
-      location: [
-        {
-          title: "New York",
-          selected: false
-        },
-        {
-          title: "Dublin",
-          selected: false
-        },
-        {
-          title: "California",
-          selected: false
-        },
-        {
-          title: "Istanbul",
-          selected: false
-        }
-      ]
-    };
-  }
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
+`;
 
-  soort(key) {
-    for (let key in this.state.sort) {
-      this.state.w.push(key);
-    }
+export default function App() {
+  const [btn, setBtn] = useState({ rect: null, text: null });
+  const handleOnMouseLeave = useCallback(e => {
+    setBtn({ rect: null, text: null });
+  }, []);
 
-    console.log(this.state.sort[key]);
-  }
+  const handleOnMouseOver = e => {
+    const { currentTarget } = e;
+    setBtn({
+      rect: currentTarget.getBoundingClientRect(),
+      text: currentTarget.dataset.txt
+    });
+  };
 
-  render() {
-    console.log(data);
-    return (
-      <input
-        name="dds"
-        onChange={e => {
-          e.preventDefault();
-          console.log(e.target.name);
-        }}
-      ></input>
-    );
-  }
+  return (
+    <div>
+      <Tooltip data={btn} />
+      <Div>
+        <Column>
+          <Btn
+            data-txt="This is Tooltip Text123123123"
+            id="btn1"
+            text="Click me"
+            onMouseOver={handleOnMouseOver}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Btn
+            data-txt="This is Tooltip Text1"
+            id="btn1"
+            text="Click me"
+            onMouseOver={handleOnMouseOver}
+            onMouseLeave={handleOnMouseLeave}
+          />
+        </Column>
+        <Column>
+          <Btn
+            data-txt="This is Tooltip Text2232"
+            id="btn1"
+            text="Click me"
+            onMouseOver={handleOnMouseOver}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Btn
+            data-txt="This is Tooltip "
+            id="btn1"
+            text="Click me"
+            onMouseOver={handleOnMouseOver}
+            onMouseLeave={handleOnMouseLeave}
+          />
+        </Column>
+      </Div>
+    </div>
+  );
 }
-
-export default App;
