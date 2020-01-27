@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.button`
+  display: none;
   width: 200px;
   height: 200px;
   background: black;
@@ -30,7 +31,7 @@ const Container = ({ toggle, children, setActive }) => {
 
 export default function App() {
   const [toggle, setToggle] = useState(false);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
 
   useEffect(() => {
     if (active) {

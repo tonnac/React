@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import posts from './posts/index.mjs';
+import posts from './posts';
 
 const api = new Router();
 
